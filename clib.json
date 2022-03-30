@@ -1,11 +1,11 @@
 {
-    "name": "c_string",
+    "name": "c_crypto",
     "version": "0.0.1",
-    "repo": "binRick/c_string",
+    "repo": "binRick/c_crypto",
     "description": "C Base64 Encoder & Decoder",
     "keywords": [
         "c",
-        "string",
+        "crypto",
         "module"
     ],
     "license": "MIT",
