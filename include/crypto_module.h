@@ -12,13 +12,27 @@
 /***********************************/
 /***********************************/
 
+#define CRYPTO_MODULE_PROPERTIES                                                                     \
+  aes_key128_t key;                                                                                  \
+  aes_ctx_t aes;                                                                                     \
+  uint8_t   *cipher, *plain;                                                                         \
+  size_t    cipher_len, plain_len;                                                                   \
+  void (*setkey)(aes_key_t key);                                                                     \
+  void (*setrandomkey)();                                                                            \
+  char *(*getkey)();                                                                                 \
+  size_t (*getkeylen)();                                                                             \
+  void (*decrypt)();                                                                                 \
+  uint8_t *(*encrypt)(aes_ctx_t * aes_ctx, const uint8_t *plain, size_t plain_len, size_t *enc_len); \
+
+
 // `crypto_module` module definition
 module(crypto_module) {
   defaults(crypto_module, CLIB_MODULE);
   void *private;
 
-  ///////////////////////////////////
+  CRYPTO_MODULE_PROPERTIES
 };
+///////////////////////////////////
 
 // `crypto_module` module prototypes
 static int  crypto_module_init(module(crypto_module) * exports);
@@ -34,6 +48,7 @@ exports(crypto_module) {
 // `private` module definition
 module(private) {
   define(private, CLIB_MODULE);
+  CRYPTO_MODULE_PROPERTIES
 };
 
 

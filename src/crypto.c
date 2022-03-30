@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 /***********************/
-#include "../include/string.h"
-/***********************/
 #include "./deps/c_aes/aes.c"
 #include "./deps/c_aes/aes_change.c"
 #include "./deps/c_aes/aes_decrypt.c"
@@ -20,7 +18,6 @@
 #include "./deps/c_aes/matrix_mix_columns.c"
 #include "./deps/c_aes/matrix_shift_rows.c"
 #include "./deps/c_aes/matrix_sub_bytes.c"
-
 /***********************/
 
 #endif
