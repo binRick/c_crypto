@@ -1,0 +1,18 @@
+{
+    "name": "c_string",
+    "version": "0.0.1",
+    "repo": "binRick/c_string",
+    "description": "C Base64 Encoder & Decoder",
+    "keywords": [
+        "c",
+        "string",
+        "module"
+    ],
+    "license": "MIT",
+    "makefile": "Makefile",
+    "install": "make install",
+    "dependencies": {
+        "clibs/module": "0.1.1",
+        "binRick/c_aes": "*"
+    }
+}
