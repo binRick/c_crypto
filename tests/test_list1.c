@@ -1,7 +1,10 @@
-#include "deps/c_list/list.h"
-#include "log/log.c"
+/*******************/
 #include <stdio.h>
 #include <stdlib.h>
+/*******************/
+#include "include/module_imports.h"
+#include "src/deps.c"
+/*******************/
 
 typedef struct node {
   int         key;
@@ -58,6 +61,11 @@ void APPEND_ITEM(int k){
 }
 
 
+void dev(){
+  dbg(123, % d);
+}
+
+
 int main(){
   log_debug("populating.....");
   POPULATE_LIST
@@ -72,5 +80,6 @@ int main(){
   SL_SORT(l0, cmp2);
   DO_PRINT_LIST();
   log_debug("sorted.....");
+  dev();
   return(0);
 }
