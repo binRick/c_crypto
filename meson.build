@@ -71,8 +71,26 @@ flag_tests = [
   ['test flag module 2 echo', test_flag2, ['echo']],
   ['test flag module 2 sleep', test_flag2, ['sleep','--concurrency','2']],
   ['test flag module 2 echo', test_flag2, ['echo','--requests','3']],
-  ['test flag module 2 sleep help', test_flag2, ['echo','--help']],
-  ['test flag module 2 echo help', test_flag2, ['sleep','--help']],
+  ['flag2 echo help', test_flag2, [
+    'echo',
+    '-h',
+  ]],
+  ['flag2 sleep help', test_flag2, [
+    'sleep',
+    '-h',
+  ]],
+  ['flag command echo arg -n 12345', test_flag2, [
+    'echo','-n','12345',
+  ]],
+  ['flag command echo 12345', test_flag2, [
+    'echo','12345',
+  ]],
+  ['flag command sleep 5', test_flag2, [
+    'sleep','5',
+  ]],
+  ['flag2 -h', test_flag2, [
+    '-h',
+  ]],
 ]
 #//***********************************************************/
 

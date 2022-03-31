@@ -14,10 +14,28 @@ int        requests    = 5000;
 int        concurrency = 10;
 const char *url        = ":3000";
 /*******************/
-#define COMMANDS          \
-  { "echo", cmd_echo },   \
-  { "sleep", cmd_sleep }, \
 /*******************/
+enum CMD_IDS {
+  CMD_ECHO  = 0,
+  CMD_SLEEP = 1,
+};
+/*******************/
+#define COMMANDS           \
+  { "echo", cmd_echo, },   \
+  { "sleep", cmd_sleep, }, \
+/*******************/
+
+
+static void usage(FILE *f) {
+  fprintf(f,
+          AC_RESETALL AC_MAGENTA "usage: example [-h] "
+          AC_RESETALL AC_RED AC_BOLD "<%s|%s>"
+          AC_RESETALL AC_MAGENTA " [OPTION]..."
+          AC_RESETALL "\n",
+          "echo",
+          "sleep"
+          );
+}
 
 
 static int cmd_sleep(char **argv){
@@ -46,28 +64,6 @@ static int cmd_sleep(char **argv){
 }
 
 
-static void usage(FILE *f) {
-  fprintf(f, "usage: example [-h] <echo|sleep> [OPTION]...\n");
-}
-
-
-int parse_opts(int argc, const char **argv) {
-  flag_int(&requests, "requests", "Number of total requests");
-  flag_int(&concurrency, "concurrency", "Number of concurrent requests");
-  flag_str(&url, "url", "Target url");
-  flag_parse(argc, argv, VERSION);
-
-  log_info("     requests: %d", requests);
-  log_info("  concurrency: %d", concurrency);
-  log_info("          url: %s", url);
-  dbg(url, % s);
-  dbg(requests, % d);
-
-  log_debug("OK");
-  return(0);
-}
-
-
 static int cmd_echo(char **argv){
   int             i, option;
   bool            newline = true;
@@ -82,6 +78,7 @@ static int cmd_echo(char **argv){
       return(0);
 
     case 'n':
+      log_debug("NEWLINE DISABLED");
       newline = false;
       break;
     case '?':
@@ -92,10 +89,13 @@ static int cmd_echo(char **argv){
   argv += options.optind;
 
   for (i = 0; argv[i]; i++) {
-    log_info("%s%s", i  ? " " : "", argv[i]);
+    log_info(AC_RESETALL AC_BLUE AC_REVERSED AC_BOLD "%s%s" AC_RESETALL, i  ? " " : "", argv[i]);
   }
   if (newline) {
+    log_debug("Adding Newline!");
     putchar('\n');
+  }else{
+    log_debug("Skipping Newline!");
   }
 
   fflush(stdout);
@@ -108,7 +108,28 @@ static const struct {
 } cmds[] = {
   COMMANDS
 };
+
+
 /*******************/
+
+
+int parse_opts(int argc, const char **argv) {
+  flag_int(&requests, "requests", "Number of total requests");
+  flag_int(&concurrency, "concurrency", "Number of concurrent requests");
+  flag_str(&url, "url", "Target url");
+  flag_parse(argc, argv, VERSION);
+
+  log_info("     requests: %d", requests);
+  log_info("  concurrency: %d", concurrency);
+  log_info("          url: %s", url);
+
+  dbg(url, % s);
+  dbg(requests, % d);
+  dbg(concurrency, % d);
+
+  log_debug("OK");
+  return(0);
+}
 
 
 int main(int argc, char **argv){
