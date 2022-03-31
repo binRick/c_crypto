@@ -66,29 +66,26 @@ tests = [
   ['test flag module 1', test_flag1, 'test-flag-module1.log'],
 ]
 flag_tests = [
-  ['test flag module 2 echo', test_flag2, ['echo']],
-  ['test flag module 2 sleep', test_flag2, ['sleep']],
-  ['test flag module 2 echo', test_flag2, ['echo']],
-  ['test flag module 2 sleep', test_flag2, ['sleep','--concurrency','2']],
-  ['test flag module 2 echo', test_flag2, ['echo','--requests','3']],
-  ['flag2 echo help', test_flag2, [
+  ['test flag module 2 echo', test_flag2, [test_flag2, 'echo']],
+  ['test flag module 2 sleep', test_flag2, [test_flag2, 'sleep']],
+  ['test flag module 2 echo', test_flag2, [test_flag2, 'echo']],
+  ['test flag module 2 sleep', test_flag2, [test_flag2, 'sleep','--concurrency','2']],
+  ['test flag module 2 echo', test_flag2, [test_flag2, 'echo','--requests','3']],
+  ['flag2 echo help', test_flag2, [ test_flag2,
     'echo',
     '-h',
   ]],
-  ['flag2 sleep help', test_flag2, [
+  ['flag2 sleep help', test_flag2, [ test_flag2,
     'sleep',
     '-h',
   ]],
-  ['flag command echo arg -n 12345', test_flag2, [
-    'echo','-n','12345',
-  ]],
-  ['flag command echo 12345', test_flag2, [
+  ['flag command echo 12345', test_flag2, [ test_flag2,
     'echo','12345',
   ]],
-  ['flag command sleep 5', test_flag2, [
-    'sleep','5',
+  ['flag command sleep 5', test_flag2, [ test_flag2,
+    'sleep','1',
   ]],
-  ['flag2 -h', test_flag2, [
+  ['flag2 -h', test_flag2, [ test_flag2,
     '-h',
   ]],
 ]
@@ -100,12 +97,12 @@ test_env.set('__SH', sh.full_path())
 test_env.set('__BD', meson.current_build_dir())
 test_env.set('__SD', meson.current_source_dir())
 #//***********************************************************/
-foreach i : tests
-test(i[0], passh, args: ['-L', i[2], i[1] ], env: test_env)
-endforeach
+#foreach i : tests
+#test(i[0], passh, args: i[2], env: test_env)
+#endforeach
 #//***********************************************************/
 foreach i : flag_tests
-test(i[0], i[1], args: i[2], env: test_env)
+test(i[0], passh, args: i[2], env: test_env)
 endforeach
 #//***********************************************************/
 

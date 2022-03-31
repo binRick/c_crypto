@@ -5,6 +5,8 @@ PASSH_BUILD = passh -L $(MAKE_LOG)
 PASSH_NINJA = passh -L $(NINJA_LOG)
 DEBUG = passh rg error: $(NINJA_LOG) --no-line-number --no-filename -A 2 | command bat --style=plain --color=always --theme=1337 --paging=always --italic-text=always
 
+CLIB_MODULES = binRick/c_list binRick/c_base64 binRick/c_aes binRick/c_optparse
+
 default: all
 
 .PHONY: all
@@ -16,6 +18,7 @@ all: build test
 
 clib:
 	@clib install
+	@clib install --save -f $(CLIB_MODULES)
 
 setup: clib
 
