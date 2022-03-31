@@ -23,8 +23,13 @@ build:
 test:
 	@meson test -C $(BUILD_DIR) --verbose
 
-clean:
+rm_bd:
 	@test -d $(BUILD_DIR) && rm -rf $(BUILD_DIR)
+
+rm_deps:
+	@test -d deps && rm -rf deps
+
+clean: rm_deps rm_bd
 
 debug: build
 	@$(PASSH_NINJA) ninja -C $(BUILD_DIR)
