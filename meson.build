@@ -21,6 +21,12 @@ incdir = include_directories(
   '../ok',
 )
 #//***********************************************************/
+test_list1 = executable('test_list1', [ 
+    'src/crypto.c', 
+    'tests/test_list1.c',  
+  ], include_directories : [incdir], 
+  dependencies : [],
+)
 test_aes1 = executable('test_aes1', [ 
     'src/crypto.c', 
     'tests/test_aes1.c',  
@@ -44,6 +50,7 @@ tests = [
   ['test crypto module 1', test_crypto_module1, 'test-crypto-module1.log'],
   ['test crypto aes 1', test_aes1, 'test-aes1.log'],
   ['test aes module 1', test_aes_module1, 'test-aes-module1.log'],
+  ['test list module 1', test_list1, 'test-list-module1.log'],
 ]
 #//***********************************************************/
 
