@@ -21,6 +21,18 @@ incdir = include_directories(
   '../ok',
 )
 #//***********************************************************/
+test_flag2 = executable('test_flag2', [ 
+    'src/crypto.c', 
+    'tests/test_flag2.c',  
+  ], include_directories : [incdir], 
+  dependencies : [],
+)
+test_flag1 = executable('test_flag1', [ 
+    'src/crypto.c', 
+    'tests/test_flag1.c',  
+  ], include_directories : [incdir], 
+  dependencies : [],
+)
 test_list1 = executable('test_list1', [ 
     'src/crypto.c', 
     'tests/test_list1.c',  
@@ -51,6 +63,16 @@ tests = [
   ['test crypto aes 1', test_aes1, 'test-aes1.log'],
   ['test aes module 1', test_aes_module1, 'test-aes-module1.log'],
   ['test list module 1', test_list1, 'test-list-module1.log'],
+  ['test flag module 1', test_flag1, 'test-flag-module1.log'],
+]
+flag_tests = [
+  ['test flag module 2 echo', test_flag2, ['echo']],
+  ['test flag module 2 sleep', test_flag2, ['sleep']],
+  ['test flag module 2 echo', test_flag2, ['echo']],
+  ['test flag module 2 sleep', test_flag2, ['sleep','--concurrency','2']],
+  ['test flag module 2 echo', test_flag2, ['echo','--requests','3']],
+  ['test flag module 2 sleep help', test_flag2, ['echo','--help']],
+  ['test flag module 2 echo help', test_flag2, ['sleep','--help']],
 ]
 #//***********************************************************/
 
@@ -62,6 +84,10 @@ test_env.set('__SD', meson.current_source_dir())
 #//***********************************************************/
 foreach i : tests
 test(i[0], passh, args: ['-L', i[2], i[1] ], env: test_env)
+endforeach
+#//***********************************************************/
+foreach i : flag_tests
+test(i[0], i[1], args: i[2], env: test_env)
 endforeach
 #//***********************************************************/
 
