@@ -1,8 +1,6 @@
 
 /*******************/
-void pre(void);
-void test(void);
-void exec(void);
-void post(void);
+void module_pre(void);
+void module_post(void);
 
 /*******************/

@@ -25,15 +25,12 @@ void module_hook(){
 
 /*******************/
 void module_lifecycle(){
-  pre();
-  if (MODULE_TEST_ENABLED) {
-    test();
-  }
+  module_pre();
   if (MODULE_EXEC_ENABLED) {
-    exec();
+    module_post();
   }
   module_hook();
-  post();
+  module_post();
 }
 
 
